@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,75 +9,82 @@
     android:background="#F8F9FE"
     tools:context="com.example.mooddistribution.MoodDistributionFragment">
 
-    <LinearLayout
-        android:id="@+id/backContainer"
+<LinearLayout
+    android:id="@+id/backContainer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/chevron_left"
+        app:tint="#000000" />
+
+    <TextView
+        android:id="@+id/tvBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginStart="4dp"
+        android:text="Back"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+</LinearLayout>
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/chevron_left"
-            app:tint="#000000" />
+<LinearLayout
+    android:id="@+id/tabContainer"
+    android:layout_width="0dp"
+    android:layout_height="40dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:background="@drawable/bg_tab_grey"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/backContainer">
 
-        <TextView
-            android:id="@+id/tvBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="Back"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/tabContainer"
+    <TextView
+        android:id="@+id/tabWeeklySummary"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Weekly Summary"
+        android:textColor="#757575"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tabMoodDistribution"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="@drawable/bg_tab_grey"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backContainer">
+        android:gravity="center"
+        android:text="Mood Distribution"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
 
-        <TextView
-            android:id="@+id/tabWeeklySummary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Weekly Summary"
-            android:textColor="#757575"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tabMoodDistribution"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_tab_grey"
-            android:gravity="center"
-            android:text="Mood Distribution"
-            android:textColor="#000000"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
+<FrameLayout
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintTop_toBottomOf="@id/tabContainer"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mainCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="24dp"
         app:cardBackgroundColor="#FFFFFF"
@@ -136,31 +144,27 @@
                     app:tint="#757575" />
             </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintBottom_toTopOf="@+id/legendContainer"
-                app:layout_constraintEnd_toEndOf="parent"
+            <com.example.mooddistribution.DonutPieChart
+                android:id="@+id/donutChart"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="40dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dateSelector">
+                app:layout_constraintTop_toBottomOf="@+id/dateSelector" />
 
-                <com.example.mooddistribution.DonutPieChart
-                    android:id="@+id/donutChart"
-                    android:layout_width="260dp"
-                    android:layout_height="260dp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:id="@+id/tvEmptyState"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="No mood data for this week"
-                    android:textColor="#9CA3AF"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="92dp"
+                android:layout_marginTop="60dp"
+                android:text="No mood data for this week"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/donutChart" />
 
             <LinearLayout
                 android:id="@+id/legendContainer"
@@ -175,4 +179,5 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+</FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

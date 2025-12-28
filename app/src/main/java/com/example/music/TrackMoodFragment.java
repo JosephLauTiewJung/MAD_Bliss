@@ -149,7 +149,6 @@ public class TrackMoodFragment extends Fragment {
         }
 
         String userId = currentUser.getUid();
-
         Map<String, Object> moodData = new HashMap<>();
         moodData.put("mood", selectedMood.toLowerCase());
         moodData.put("timestamp", FieldValue.serverTimestamp());
