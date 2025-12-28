@@ -61,10 +61,15 @@ public class MoodDistributionFragment extends Fragment {
         view.findViewById(R.id.btnBack).setOnClickListener(backHomeListener);
         view.findViewById(R.id.tvBack).setOnClickListener(backHomeListener);
 
-        // --- 返回 Weekly Summary (上一级) ---
-        view.findViewById(R.id.tabWeeklySummary).setOnClickListener(v -> {
+        // --- Tab navigation ---
+        TextView moodDistributionTab = view.findViewById(R.id.moodDistributionTab);
+        view.findViewById(R.id.weeklySummaryTab).setOnClickListener(v -> {
+            // Clear Mood Distribution tab selection before navigating back
+            moodDistributionTab.setBackgroundResource(R.drawable.tab_selector);
             getParentFragmentManager().popBackStack();
         });
+
+        // Mood Distribution tab is already selected (no action needed)
 
         // 周切换
         view.findViewById(R.id.btnPrevWeek).setOnClickListener(v -> shiftWeek(-1));

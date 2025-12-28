@@ -67,6 +67,7 @@ public class WeeklySummaryFragment extends Fragment {
     FirebaseUser user;
     CollectionReference users;
     String uid;
+    
     public WeeklySummaryFragment() {
         // Required empty public constructor
     }
@@ -88,8 +89,25 @@ public class WeeklySummaryFragment extends Fragment {
         ImageView btnBack = view.findViewById(R.id.btnBack);
         TextView tvBack = view.findViewById(R.id.tvBack);
 
+        // Set Weekly Summary tab as selected by default
+        TextView weeklySummaryTab = view.findViewById(R.id.weeklySummaryTab);
+        weeklySummaryTab.setBackgroundResource(R.drawable.tab_selected);
+
+        // Add navigation to Mood Distribution
+        TextView moodDistributionTab = view.findViewById(R.id.moodDistributionTab);
+        moodDistributionTab.setOnClickListener(v -> {
+            // Clear Weekly Summary tab selection before navigating
+            weeklySummaryTab.setBackgroundResource(R.drawable.tab_selector);
+            if (getParentFragmentManager() != null) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new MoodDistributionFragment())
+                        .addToBackStack("MoodDistribution")
+                        .commit();
+            }
+        });
+
         // 找到指向 Mood Distribution 的入口卡片 (请确保 XML 中 ID 为 cardMood)
-        View cardMood = view.findViewById(R.id.cardMood);
+        // View cardMood = view.findViewById(R.id.cardMood);
 
         // 2. 处理返回逻辑
         View.OnClickListener backListener = v -> {
@@ -97,25 +115,18 @@ public class WeeklySummaryFragment extends Fragment {
                 getParentFragmentManager().popBackStack();
             }
         };
-        TextView moodDistributionTab = view.findViewById(R.id.moodDistributionTab);
-        moodDistributionTab.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Navigating to Mood Distribution", Toast.LENGTH_SHORT).show();
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.weeklySummaryFragmentContainer, new MoodDistributionFragment())
-                    .addToBackStack("MoodDistribution")
-                    .commit();
-        });
+
         btnBack.setOnClickListener(backListener);
         tvBack.setOnClickListener(backListener);
         // 3. 处理跳转逻辑 (点击卡片去 Mood Distribution)
-        if (cardMood != null) {
-            cardMood.setOnClickListener(v -> {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.weeklySummaryFragmentContainer, new MoodDistributionFragment())
-                        .addToBackStack(null) // 加入回退栈，按返回键能回到本页
-                        .commit();
-            });
-        }
+        // if (cardMood != null) {
+        //     cardMood.setOnClickListener(v -> {
+        //         getParentFragmentManager().beginTransaction()
+        //                 .replace(R.id.weeklySummaryFragmentContainer, new MoodDistributionFragment())
+        //                 .addToBackStack(null) // 加入回退栈，按返回键能回到本页
+        //                 .commit();
+        //     });
+        // }
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // get mood data for each day of the week
         getMoodData().observe(getViewLifecycleOwner(), moods -> {
