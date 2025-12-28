@@ -142,6 +142,7 @@ public class WeeklySummaryFragment extends Fragment {
                 entries.add(new BarEntry(i, (float) score));
             }
             Log.d("Entries", entries.toString());
+
             setChartData(chart, entries);
         });
         
