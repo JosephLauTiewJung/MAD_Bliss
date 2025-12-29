@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.concurrent:concurrent-futures-ktx:1.2.0-alpha03" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="androidx.concurrent" artifactId="concurrent-futures-ktx" version="1.2.0-alpha03" baseVersion="1.2.0-alpha03" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.concurrent/concurrent-futures-ktx/1.2.0-alpha03/33bfff0b4d1b25c76bd2d355fec8f188d7bae241/concurrent-futures-ktx-1.2.0-alpha03.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.concurrent/concurrent-futures-ktx/1.2.0-alpha03/75a821870ee27c8257e4201a07a65bc03e99ee6c/concurrent-futures-ktx-1.2.0-alpha03-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
