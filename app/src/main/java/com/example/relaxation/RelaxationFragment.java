@@ -201,6 +201,9 @@ public class RelaxationFragment extends Fragment {
     }
 
     private void setupListeners() {
+        // 0. Meditation tab (stays on current fragment)
+        btnMeditation.setOnClickListener(v -> selectTab(btnMeditation));
+
         // 1. 跳转到呼吸训练 (BreathingFragment)
         btnBreathing.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()

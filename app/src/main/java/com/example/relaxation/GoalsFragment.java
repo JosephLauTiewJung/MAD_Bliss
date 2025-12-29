@@ -106,10 +106,18 @@ public class GoalsFragment extends Fragment {
     private void setupListeners() {
         // Note: Replace these with Fragment navigation if using Navigation Component
         btnMeditation.setOnClickListener(v -> {
-            // Logic to switch to Meditation Fragment
+            // Navigate back to RelaxationFragment (meditation tab)
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new RelaxationFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
         btnBreathing.setOnClickListener(v -> {
-            // Logic to switch to Breathing Fragment
+            // Navigate to BreathingFragment
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new BreathingFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
         btnAddGoal.setOnClickListener(v -> startActivity(new Intent(requireContext(), AddEditGoalActivity.class)));
     }
