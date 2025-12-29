@@ -1,6 +1,8 @@
 package com.example.login_signup_profile;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.content.SharedPreferences;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +35,11 @@ public class ProfileFragment extends Fragment {
 
     private LinearLayout llChangePassword;
     private LinearLayout llLogout;
+    private LinearLayout llFAQs;
+    private LinearLayout llPushNotifications;
     private Button btnEditProfile;
+    private TextView tvContactEmail;
+    private Switch switchNotifications;
 
     private TextView fullName, email, phone;
     private ImageView profilePicture;
@@ -40,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseFirestore store;
     private String userId;
     private ListenerRegistration userListener;
+    private SharedPreferences sharedPreferences;
 
     // Fragment 必须有一个空的构造函数
     public ProfileFragment() {}
@@ -63,11 +72,16 @@ public class ProfileFragment extends Fragment {
 
         llChangePassword = view.findViewById(R.id.llChangePassword);
         llLogout = view.findViewById(R.id.llLogout);
+        llFAQs = view.findViewById(R.id.llFAQs);
+        llPushNotifications = view.findViewById(R.id.llPushNotifications);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        tvContactEmail = view.findViewById(R.id.tvContactEmail);
+        switchNotifications = view.findViewById(R.id.switchNotifications);
 
         // 初始化 Firebase
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
+        sharedPreferences = requireContext().getSharedPreferences("BlissPrefs", Context.MODE_PRIVATE);
 
         if (auth.getCurrentUser() != null) {
             userId = auth.getCurrentUser().getUid();
@@ -142,6 +156,24 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupClickListeners() {
+        // Load notification preference
+        boolean notificationsEnabled = sharedPreferences.getBoolean("notifications_enabled", true);
+        switchNotifications.setChecked(notificationsEnabled);
+
+        // Notification switch listener
+        switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            sharedPreferences.edit().putBoolean("notifications_enabled", isChecked).apply();
+            if (isChecked) {
+                // Enable notifications
+                com.example.notifications.NotificationScheduler.scheduleDailyReminders(requireContext());
+                Toast.makeText(getContext(), "Notifications enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                // Disable notifications
+                com.example.notifications.NotificationScheduler.cancelAllReminders(requireContext());
+                Toast.makeText(getContext(), "Notifications disabled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // 1. 跳转到修改密码 (Fragment 切换)
         llChangePassword.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
@@ -175,6 +207,25 @@ public class ProfileFragment extends Fragment {
                     .replace(R.id.fragment_container, editFragment)
                     .addToBackStack(null)
                     .commit();
+        });
+
+        // Push Notifications toggle (can implement notification settings)
+        llPushNotifications.setOnClickListener(v -> {
+            // For now, show a toast. You can implement notification settings here
+            Toast.makeText(getContext(), "Notification settings coming soon!", Toast.LENGTH_SHORT).show();
+            // TODO: Navigate to notification settings when implemented
+        });
+
+        // Contact Email - open email client
+        tvContactEmail.setOnClickListener(v -> {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:madblissss05@gmail.com"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Inquiry from Bliss App");
+            try {
+                startActivity(emailIntent);
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "No email app found", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
