@@ -93,15 +93,7 @@ public class WeeklySummaryFragment extends Fragment {
         if (backContainer != null) {
             backContainer.setOnClickListener(backListener);
         }
-        // 3. 处理跳转逻辑 (点击卡片去 Mood Distribution)
-        // if (cardMood != null) {
-        //     cardMood.setOnClickListener(v -> {
-        //         getParentFragmentManager().beginTransaction()
-        //                 .replace(R.id.weeklySummaryFragmentContainer, new MoodDistributionFragment())
-        //                 .addToBackStack(null) // 加入回退栈，按返回键能回到本页
-        //                 .commit();
-        //     });
-        // }
+
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // get mood data for each day of the week
         getMoodData().observe(getViewLifecycleOwner(), moods -> {

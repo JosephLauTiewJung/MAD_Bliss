@@ -31,6 +31,7 @@ public class SupportFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_support, container, false);
+        View backContainer = view.findViewById(R.id.backContainer);
 
         additionalServicesLayout = view.findViewById(R.id.additionalServicesLayout);
         supportContainer = view.findViewById(R.id.supportContainer);
@@ -61,17 +62,15 @@ public class SupportFragment extends Fragment {
             seeMoreButton.setText(isExpanded ? "See less..." : "See more...");
         });
 
-        // 5. BACK BUTTON - NAVIGATE TO HOME
-        view.findViewById(R.id.backButton).setOnClickListener(v -> {
-            // This Toast helps you test if the button is even being "sensed"
-            // Toast.makeText(getContext(), "Back Clicked", Toast.LENGTH_SHORT).show();
-
+        View.OnClickListener backListener = v -> {
             if (getParentFragmentManager() != null) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new HomeFragment())
-                        .commit();
+                getParentFragmentManager().popBackStack();
             }
-        });
+        };
+
+        if (backContainer != null) {
+            backContainer.setOnClickListener(backListener);
+        }
 
         return view;
     }

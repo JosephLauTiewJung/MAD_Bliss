@@ -50,8 +50,20 @@ public class TrackMoodFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // 加载布局
-        return inflater.inflate(R.layout.fragment_track_mood, container, false);
+        // Inflate layout
+        View view = inflater.inflate(R.layout.fragment_track_mood, container, false);
+
+        // Back button
+        View backContainer = view.findViewById(R.id.backContainer);
+        if (backContainer != null) {
+            backContainer.setOnClickListener(v -> {
+                if (getParentFragmentManager() != null) {
+                    getParentFragmentManager().popBackStack();
+                }
+            });
+        }
+
+        return view;
     }
 
     @Override

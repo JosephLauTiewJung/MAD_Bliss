@@ -185,27 +185,33 @@
                 app:layout_constraintTop_toBottomOf="@id/tvEmptyState"
                 app:layout_constraintEnd_toEndOf="parent"
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="2.5dp">
+                    android:layout_height="match_parent"
+                    android:layout_margin="2.5dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/happy_rounded_bg"/>
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/happy_rounded_bg" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="happy"/>
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="happy"
+                        android:textSize="20sp" />
+
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/happy_ic"/>
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/iconhappy1" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -217,18 +223,23 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/calm_rounded_bg"/>
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/calm_rounded_bg" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="calm"/>
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="calm"
+                        android:textSize="20sp" />
+
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/calm_ic"/>
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/iconcalm1" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -240,18 +251,23 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/sad_rounded_bg"/>
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/sad_rounded_bg" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="sad"/>
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="sad"
+                        android:textSize="20sp" />
+
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/sad_ic"/>
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/iconsad1" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -263,18 +279,23 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/stress_rounded_bg"/>
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/stress_rounded_bg" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="stressed"/>
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="stressed"
+                        android:textSize="20sp" />
+
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/stress_ic"/>
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/iconstressed2" />
 
                 </LinearLayout>
             </LinearLayout>
