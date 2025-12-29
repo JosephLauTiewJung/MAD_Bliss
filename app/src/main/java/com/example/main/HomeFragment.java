@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.bliss.R;
 import com.example.music.TrackMoodFragment;
+import com.example.support.SupportFragment;
 import com.example.weeklysummary.WeeklySummaryFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,15 +56,10 @@ public class HomeFragment extends Fragment {
                 R.drawable.ic_track_mood,
                 new TrackMoodFragment());
 
-        /*setupCard(view.findViewById(R.id.cardAchievement),
-                "Achievement", "Unlock badges as you grow.",
-                R.drawable.ic_achievement,
-                new AchievementFragment());
-
         setupCard(view.findViewById(R.id.cardSupport),
                 "Support", "Find help and comforting resources.",
-                R.drawable.ic_support,
-                new SupportFragment()); */
+                R.drawable.ic_support2,
+                new SupportFragment());
 
         setupCard(view.findViewById(R.id.cardSummary),
                 "Summary", "View your progress.",
