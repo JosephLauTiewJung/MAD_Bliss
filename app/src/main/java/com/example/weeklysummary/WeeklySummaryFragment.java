@@ -26,11 +26,13 @@ import com.example.main.MainActivity;
 import com.example.mooddistribution.MoodDistributionFragment; // 确保导入了目标 Fragment
 import com.example.music.TrackMoodFragment;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -203,9 +205,13 @@ public class WeeklySummaryFragment extends Fragment {
         // 配置 X 轴
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawLabels(false);
-        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setDrawLabels(true);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(7);
+        String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setDrawAxisLine(true);
 
         // 配置 Y 轴
         YAxis leftAxis = barChart.getAxisLeft();
