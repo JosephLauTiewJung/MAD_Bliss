@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,15 +19,13 @@ import com.example.bliss.adapter.JournalAdapter;
 import com.example.bliss.model.JournalEntry;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -252,7 +249,7 @@ public class CalendarActivity extends AppCompatActivity {
             if (mood == null) return R.drawable.neutral;
             String lowerMood = mood.toLowerCase(Locale.ROOT);
             if (lowerMood.contains("happy")) {
-                return R.drawable.happy;
+                return R.drawable.happy_ic;
             } else if (lowerMood.contains("sad")) {
                 return R.drawable.sad;
             } else if (lowerMood.contains("angry")) {

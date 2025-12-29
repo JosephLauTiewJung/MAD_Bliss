@@ -38,7 +38,7 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalV
         if (mood == null) return R.drawable.neutral;
         String lowerMood = mood.toLowerCase();
         if (lowerMood.contains("happy")) {
-            return R.drawable.happy;
+            return R.drawable.happy_ic;
         } else if (lowerMood.contains("sad")) {
             return R.drawable.sad;
         } else if (lowerMood.contains("angry")) {
