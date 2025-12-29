@@ -1,12 +1,14 @@
 package com.example.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.notifications.NotificationScheduler;
 import com.example.bliss.R;
 import com.example.bliss.JournalListFragment;
 import com.example.login_signup_profile.ProfileFragment;
@@ -31,8 +33,41 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNavigation);
         fabChat = findViewById(R.id.fabChat);
 
+        // Schedule notifications only if enabled
+        SharedPreferences sharedPreferences = getSharedPreferences("BlissPrefs", MODE_PRIVATE);
+        boolean notificationsEnabled = sharedPreferences.getBoolean("notifications_enabled", true);
+        if (notificationsEnabled) {
+            NotificationScheduler.scheduleDailyReminders(this);
+        }
+
+        // Request permission for Android 13+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+        
+        // Request Exact Alarm permission for Android 12+ (API 31+)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            android.app.AlarmManager alarmManager = (android.app.AlarmManager) getSystemService(android.content.Context.ALARM_SERVICE);
+            if (!alarmManager.canScheduleExactAlarms()) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(intent);
+            }
+        }
+
+        // Handle notification navigation
+        if (getIntent() != null && getIntent().hasExtra("NAVIGATE_TO")) {
+            String destination = getIntent().getStringExtra("NAVIGATE_TO");
+            if ("mood".equals(destination)) {
+                replaceFragment(new com.example.music.TrackMoodFragment(), true);
+            } else if ("journal".equals(destination)) {
+                bottomNav.setSelectedItemId(R.id.nav_journal);
+            }
+        }
+
         // 1. 设置默认进入的 Fragment (HomeFragment)
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && (getIntent() == null || !getIntent().hasExtra("NAVIGATE_TO"))) {
             replaceFragment(new HomeFragment(),false);
             // 确保底部菜单的 Home 图标被手动选中
             bottomNav.setSelectedItemId(R.id.nav_home);

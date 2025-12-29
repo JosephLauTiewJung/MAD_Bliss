@@ -1,10 +1,13 @@
 package com.example.mooddistribution;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -61,10 +64,15 @@ public class MoodDistributionFragment extends Fragment {
         view.findViewById(R.id.btnBack).setOnClickListener(backHomeListener);
         view.findViewById(R.id.tvBack).setOnClickListener(backHomeListener);
 
-        // --- 返回 Weekly Summary (上一级) ---
-        view.findViewById(R.id.tabWeeklySummary).setOnClickListener(v -> {
+        // --- Tab navigation ---
+        TextView moodDistributionTab = view.findViewById(R.id.moodDistributionTab);
+        view.findViewById(R.id.weeklySummaryTab).setOnClickListener(v -> {
+            // Clear Mood Distribution tab selection before navigating back
+            moodDistributionTab.setBackgroundResource(R.drawable.tab_selector);
             getParentFragmentManager().popBackStack();
         });
+
+        // Mood Distribution tab is already selected (no action needed)
 
         // 周切换
         view.findViewById(R.id.btnPrevWeek).setOnClickListener(v -> shiftWeek(-1));
@@ -104,22 +112,23 @@ public class MoodDistributionFragment extends Fragment {
                     int total = 0;
                     for (QueryDocumentSnapshot doc : snapshots) {
                         String mood = doc.getString("mood");
+                        Log.d("Mood entries", "loadDistributionData: " + mood);
                         if (mood != null) {
                             counts.put(mood.toLowerCase(), counts.getOrDefault(mood.toLowerCase(), 0) + 1);
                             total++;
                         }
                     }
+                    Log.d("Mood count", counts.toString());
                     updateChart(counts, total);
                 });
     }
 
     private void updateChart(Map<String, Integer> counts, int total) {
         if (total == 0) {
-            donutChart.setVisibility(View.GONE);
-            tvEmptyState.setVisibility(View.VISIBLE);
+            tvEmptyState.setText("No mood data from this week. ");
+            donutChart.setSegments(new ArrayList<>());
         } else {
-            donutChart.setVisibility(View.VISIBLE);
-            tvEmptyState.setVisibility(View.GONE);
+            tvEmptyState.setText("");
 
             List<DonutPieChart.Segment> segments = new ArrayList<>();
             addIf(segments, counts, "happy", "#8979FF", 1.0f, "Happy");

@@ -12,8 +12,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class GeminiHelper {
-    // API Key is now loaded from BuildConfig (which gets it from local.properties)
-    private static final String API_KEY = BuildConfig.GOOGLE_API_KEY;
+    // API Key is now loaded from BuildConfig.GEMINI_API_KEY (which gets it from local.properties)
+    private static final String API_KEY = BuildConfig.GEMINI_API_KEY;
     private final GenerativeModelFutures model;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
