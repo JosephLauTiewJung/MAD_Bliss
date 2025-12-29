@@ -1,17 +1,11 @@
 package com.example.weeklysummary;
 
-import static android.content.ContentValues.TAG;
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,47 +16,28 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.bliss.R;
 import com.example.bliss.model.Mood;
 import com.example.bliss.model.User;
-import com.example.main.MainActivity;
 import com.example.mooddistribution.MoodDistributionFragment; // 确保导入了目标 Fragment
-import com.example.music.TrackMoodFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.RunnableFuture;
-import java.util.stream.Collectors;
 
 public class WeeklySummaryFragment extends Fragment {
 
+    private static final String TAG = "WeeklySummaryFragment";
     FirebaseFirestore firestore;
     FirebaseUser user;
     CollectionReference users;
@@ -86,8 +61,7 @@ public class WeeklySummaryFragment extends Fragment {
         users = firestore.collection("users");
         // 1. 初始化视图控件
         BarChart barChart = view.findViewById(R.id.barChart);
-        ImageView btnBack = view.findViewById(R.id.btnBack);
-        TextView tvBack = view.findViewById(R.id.tvBack);
+        View backContainer = view.findViewById(R.id.backContainer);
 
         // Set Weekly Summary tab as selected by default
         TextView weeklySummaryTab = view.findViewById(R.id.weeklySummaryTab);
@@ -116,17 +90,10 @@ public class WeeklySummaryFragment extends Fragment {
             }
         };
 
-        btnBack.setOnClickListener(backListener);
-        tvBack.setOnClickListener(backListener);
-        // 3. 处理跳转逻辑 (点击卡片去 Mood Distribution)
-        // if (cardMood != null) {
-        //     cardMood.setOnClickListener(v -> {
-        //         getParentFragmentManager().beginTransaction()
-        //                 .replace(R.id.weeklySummaryFragmentContainer, new MoodDistributionFragment())
-        //                 .addToBackStack(null) // 加入回退栈，按返回键能回到本页
-        //                 .commit();
-        //     });
-        // }
+        if (backContainer != null) {
+            backContainer.setOnClickListener(backListener);
+        }
+
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // get mood data for each day of the week
         getMoodData().observe(getViewLifecycleOwner(), moods -> {
@@ -153,6 +120,7 @@ public class WeeklySummaryFragment extends Fragment {
                 entries.add(new BarEntry(i, (float) score));
             }
             Log.d("Entries", entries.toString());
+
             setChartData(chart, entries);
         });
         
@@ -202,14 +170,20 @@ public class WeeklySummaryFragment extends Fragment {
         // 配置 X 轴
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawLabels(false);
-        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setDrawLabels(true);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(7);
+        String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setDrawAxisLine(true);
 
         // 配置 Y 轴
         YAxis leftAxis = barChart.getAxisLeft();
-        leftAxis.setDrawLabels(false);
-        leftAxis.setDrawAxisLine(false);
+        leftAxis.setDrawLabels(true);
+        leftAxis.setAxisMinimum(0.0f);
+        leftAxis.setAxisMaximum(7.0f);
+        leftAxis.setDrawAxisLine(true);
         leftAxis.setDrawGridLines(false);
         barChart.getAxisRight().setEnabled(false);
     }
@@ -239,7 +213,6 @@ public class WeeklySummaryFragment extends Fragment {
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        Toast.makeText(getContext(), "Data retrieved successfully", Toast.LENGTH_SHORT).show();
                         List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot document : documents) {
                             Mood mood = document.toObject(Mood.class);

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.example.chatbox.models.Message;
 import com.example.chatbox.models.MyResponse;
 import com.example.chatbox.services.ApiService;
 import com.example.chatbox.services.RetrofitClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,13 +77,18 @@ public class AIChatbotFragment extends Fragment {
             // 添加用户消息
             addMessage(new Message(text, "Me", System.currentTimeMillis()));
             editMessage.setText("");
-
+            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // get the user uid
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             // 调用 API
-            apiService.getMessage(text).enqueue(new Callback<MyResponse>() {
+            apiService.getMessage(text, uid).enqueue(new Callback<MyResponse>() {
                 @Override
                 public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
                     // Fragment 必须检查 isAdded 防止异步回调时 Fragment 已销毁
-                    if (isAdded() && response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         addMessage(new Message(response.body().getMessage(), "BlissMate", System.currentTimeMillis()));
                     }
                 }
@@ -89,7 +96,7 @@ public class AIChatbotFragment extends Fragment {
                 @Override
                 public void onFailure(Call<MyResponse> call, Throwable t) {
                     if (isAdded()) {
-                        addMessage(new Message("Connection Error", "Agent", System.currentTimeMillis()));
+                        addMessage(new Message(t.getMessage(), "Agent", System.currentTimeMillis()));
                     }
                 }
             });
