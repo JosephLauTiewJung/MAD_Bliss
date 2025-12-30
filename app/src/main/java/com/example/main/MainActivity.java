@@ -3,10 +3,12 @@ package com.example.main;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.notifications.NotificationScheduler;
 import com.example.bliss.R;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
     private FloatingActionButton fabChat;
+    private View headerSection;
+    private View headerContent;
+    private android.widget.TextView tvWelcome, tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.bottomNavigation);
         fabChat = findViewById(R.id.fabChat);
+        headerSection = findViewById(R.id.headerSection);
+        headerContent = findViewById(R.id.headerContent);
+        tvWelcome = findViewById(R.id.tvWelcome);
+        tvDate = findViewById(R.id.tvDate);
 
         // Schedule notifications only if enabled
         SharedPreferences sharedPreferences = getSharedPreferences("BlissPrefs", MODE_PRIVATE);
@@ -99,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
             // Deselect bottom nav items since we are in a special fragment
             bottomNav.getMenu().setGroupCheckable(0, false, true);
         });
+
+        // Initialize header with user data
+        initializeHeader();
     }
 
     @Override
@@ -162,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 封装跳转方法
-    private void replaceFragment(Fragment fragment, boolean addToStack) {
+    void replaceFragment(Fragment fragment, boolean addToStack) {
         androidx.fragment.app.FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment);
@@ -171,5 +183,66 @@ public class MainActivity extends AppCompatActivity {
             transaction.addToBackStack(null);
         }
         transaction.commit();
+
+        // Show header only for HomeFragment
+        showHeader(fragment instanceof HomeFragment);
+    }
+
+    void showHeader(boolean show) {
+        if (headerSection != null) {
+            headerSection.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void initializeHeader() {
+        // Set header background immediately based on current time
+        int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+        int headerBackground;
+        
+        if (hour >= 5 && hour < 12) {
+            headerBackground = R.drawable.bg_header_morning;
+        } else if (hour >= 12 && hour < 17) {
+            headerBackground = R.drawable.bg_header_afternoon;
+        } else if (hour >= 17 && hour < 22) {
+            headerBackground = R.drawable.bg_header_evening;
+        } else {
+            headerBackground = R.drawable.bg_header_night;
+        }
+        
+        // Set header background based on time
+        headerContent.setBackgroundResource(headerBackground);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            FirebaseFirestore.getInstance().collection("users").document(userId).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String name = documentSnapshot.getString("name");
+                            String greeting = "Welcome";
+                            
+                            if (hour >= 5 && hour < 12) {
+                                greeting = "Good morning";
+                            } else if (hour >= 12 && hour < 17) {
+                                greeting = "Good afternoon";
+                            } else if (hour >= 17 && hour < 22) {
+                                greeting = "Good evening";
+                            } else {
+                                greeting = "Good night";
+                            }
+                            
+                            if (name != null && !name.isEmpty()) {
+                                tvWelcome.setText(greeting + ", " + name);
+                            } else {
+                                tvWelcome.setText(greeting);
+                            }
+                        }
+                    });
+        }
+
+        // Set current date
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("EEEE, MMMM d", java.util.Locale.getDefault());
+        String currentDate = sdf.format(new java.util.Date());
+        tvDate.setText(currentDate);
     }
 }

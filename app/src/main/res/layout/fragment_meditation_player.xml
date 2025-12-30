@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/meditation_gradient_bg">
+    android:background="@drawable/gradient_bg">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -19,18 +19,19 @@
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_arrow_back"
             android:contentDescription="Back"
-            app:tint="#FFFFFF" />
+            app:tint="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="Back"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginStart="8dp" />
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,7 +49,7 @@
             android:text="Body Scan"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:layout_marginBottom="8dp" />
 
         <TextView
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Ocean Waves"
             android:textSize="14sp"
-            android:textColor="#E0E0E0"
+            android:textColor="#7B2CBF"
             android:layout_marginBottom="32dp"
             android:visibility="gone" />
 
@@ -65,6 +66,13 @@
             android:layout_width="280dp"
             android:layout_height="280dp"
             android:layout_marginBottom="32dp">
+
+            <View
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_background_purple"
+                android:alpha="0.3" />
 
             <View
                 android:id="@+id/breathingCircle"
@@ -81,8 +89,8 @@
                 android:layout_gravity="center"
                 app:indicatorSize="280dp"
                 app:trackThickness="12dp"
-                app:indicatorColor="#FFFFFF"
-                app:trackColor="#80FFFFFF"
+                app:indicatorColor="#8E24AA"
+                app:trackColor="#808E24AA"
                 app:trackCornerRadius="6dp"
                 android:progress="0"
                 android:max="100" />
@@ -101,7 +109,7 @@
                     android:text="0:00"
                     android:textSize="36sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#7B2CBF"
                     android:layout_marginBottom="8dp" />
 
                 <TextView
@@ -110,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:text="Breathe In"
                     android:textSize="18sp"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#7B2CBF"
                     android:visibility="gone"
                     android:alpha="0.8" />
             </LinearLayout>
@@ -121,7 +129,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#33FFFFFF"
+            app:cardBackgroundColor="#80E1BEE7"
             android:layout_marginBottom="24dp">
 
             <TextView
@@ -130,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="Focus on your breath and let your body relax"
                 android:textSize="18sp"
-                android:textColor="#333333"
+                android:textColor="#4A148C"
                 android:textAlignment="center"
                 android:padding="20dp"
                 android:minHeight="80dp"
@@ -150,7 +158,7 @@
                 android:layout_weight="1"
                 android:text="Text 1 of 8"
                 android:textSize="14sp"
-                android:textColor="#E0E0E0" />
+                android:textColor="#7B2CBF" />
 
             <TextView
                 android:id="@+id/tvPercentage"
@@ -158,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:text="0%"
                 android:textSize="14sp"
-                android:textColor="#E0E0E0" />
+                android:textColor="#7B2CBF" />
         </LinearLayout>
 
         <LinearLayout
@@ -173,14 +181,15 @@
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_skip_previous"
-                app:tint="#FFFFFF"
+                app:tint="#7B2CBF"
                 android:layout_marginEnd="24dp" />
 
             <Button
                 android:id="@+id/btnStartPause"
                 android:layout_width="140dp"
                 android:layout_height="56dp"
-                android:background="@drawable/button_white_rounded"
+                android:background="@drawable/linear_background"
+                app:backgroundTint="@null"
                 android:elevation="4dp"
                 android:text="Start"
                 android:textAllCaps="false"
@@ -193,7 +202,7 @@
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_skip_next"
-                app:tint="#FFFFFF"
+                app:tint="#7B2CBF"
                 android:layout_marginStart="24dp" />
         </LinearLayout>
 
@@ -210,7 +219,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_volume"
-                app:tint="#FFFFFF"
+                app:tint="#7B2CBF"
                 android:layout_marginEnd="12dp" />
 
             <SeekBar
@@ -220,8 +229,8 @@
                 android:layout_weight="1"
                 android:max="100"
                 android:progress="70"
-                android:progressTint="#FFFFFF"
-                android:thumbTint="#FFFFFF" />
+                android:progressTint="#7B2CBF"
+                android:thumbTint="#7B2CBF" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

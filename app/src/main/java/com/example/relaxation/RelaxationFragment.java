@@ -108,7 +108,7 @@ public class RelaxationFragment extends Fragment {
         resetTab(btnBreathing);
         resetTab(btnGoals);
 
-        selectedButton.setBackgroundResource(R.drawable.tab_selected_white);
+        selectedButton.setBackgroundResource(R.drawable.linear_background);
         selectedButton.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
     }
 

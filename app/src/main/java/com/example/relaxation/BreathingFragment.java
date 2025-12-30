@@ -119,22 +119,7 @@ public class BreathingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // 确保 Tab 状态正确
-        selectTab(btnBreathing);
-    }
-
-    private void selectTab(Button selectedButton) {
-        resetTab(btnMeditation);
-        resetTab(btnBreathing);
-        resetTab(btnGoals);
-
-        selectedButton.setBackgroundResource(R.drawable.tab_selected_white);
-        selectedButton.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
-    }
-
-    private void resetTab(Button button) {
-        button.setBackgroundResource(android.R.color.transparent);
-        button.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_dark));
+        // Fragment resumed
     }
 
     private void setupTextToSpeech() {
@@ -165,7 +150,7 @@ public class BreathingFragment extends Fragment {
     }
 
     private void setupListeners(View rootView) {
-        // 跳转回 Meditation (现在应该是 RelaxationFragment 或其 Activity)
+        // Tab navigation
         btnMeditation.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new RelaxationFragment())

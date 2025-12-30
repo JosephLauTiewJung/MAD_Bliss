@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background image -->
+    <item android:drawable="@drawable/nightheader" />
+
+    <!-- Rounded corners overlay -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Semi-transparent overlay for better text readability -->
+            <solid android:color="#80000000" />
+
+            <!-- Rounded corners with bow effect -->
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+</layer-list>

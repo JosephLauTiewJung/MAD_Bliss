@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@drawable/gradient_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -106,9 +106,10 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
+                android:background="@drawable/linear_background"
                 android:text="Save"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#9C27B0"
+                android:textColor="#FFFFFF" />
+                android:background="@drawable/linear_background"
                 android:layout_marginStart="8dp"/>
 
 

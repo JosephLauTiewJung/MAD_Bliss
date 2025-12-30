@@ -16,18 +16,8 @@ import com.example.bliss.R;
 import com.example.music.TrackMoodFragment;
 import com.example.support.SupportFragment;
 import com.example.weeklysummary.WeeklySummaryFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class HomeFragment extends Fragment {
-
-    private TextView tvWelcome;
-    private FirebaseFirestore db;
-    private FirebaseAuth auth;
 
     @Nullable
     @Override
@@ -40,22 +30,36 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tvWelcome = view.findViewById(R.id.tvWelcome);
-        TextView tvDate = view.findViewById(R.id.tvDate);
+        // Setup card click listeners
+        setupMoodTrackerCard(view);
+        setupOtherCards(view);
+    }
 
-        db = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).showHeader(true);
+    }
 
-        String currentDate = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault()).format(new Date());
-        tvDate.setText(currentDate);
+    private void setupMoodTrackerCard(View view) {
+        View cardMoodTracker = view.findViewById(R.id.cardMoodTracker);
+        if (cardMoodTracker != null) {
+            // Set up the mood tracker card content
+            TextView tvTitle = cardMoodTracker.findViewById(R.id.itemTitle);
+            TextView tvSub = cardMoodTracker.findViewById(R.id.itemSubtitle);
+            ImageView imgIcon = cardMoodTracker.findViewById(R.id.itemIcon);
 
-        fetchUserName();
+            tvTitle.setText("Track Your Mood");
+            tvSub.setText("How are you feeling today?");
+            imgIcon.setImageResource(R.drawable.ic_track_mood);
 
-        setupCard(view.findViewById(R.id.cardMood),
-                "Track Mood", "How are you feeling?",
-                R.drawable.ic_track_mood,
-                new TrackMoodFragment());
+            cardMoodTracker.setOnClickListener(v -> {
+                ((MainActivity) getActivity()).replaceFragment(new com.example.music.TrackMoodFragment(), true);
+            });
+        }
+    }
 
+    private void setupOtherCards(View view) {
         setupCard(view.findViewById(R.id.cardSupport),
                 "Support", "Find help and comforting resources.",
                 R.drawable.ic_support2,
@@ -66,33 +70,17 @@ public class HomeFragment extends Fragment {
                 R.drawable.ic_summary,
                 new WeeklySummaryFragment());
 
+        // Setup inspiration card
+        View cardInspiration = view.findViewById(R.id.cardInspiration);
+        if (cardInspiration != null) {
+            cardInspiration.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "Daily inspiration coming soon!", Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 
     private void fetchUserName() {
-        if (auth.getCurrentUser() != null) {
-            String userId = auth.getCurrentUser().getUid();
-
-            db.collection("users").document(userId)
-                    .get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (isAdded() && documentSnapshot.exists()) {
-
-                            String name = documentSnapshot.getString("name");
-                            if (name != null && !name.isEmpty()) {
-                                tvWelcome.setText("Welcome back, " + name + "!");
-                            } else {
-                                tvWelcome.setText("Welcome back!");
-                            }
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        if (isAdded()) {
-                            tvWelcome.setText("Welcome back!");
-                        }
-                    });
-        } else {
-            tvWelcome.setText("Welcome back!");
-        }
+        // Welcome message is now handled in MainActivity header
     }
 
     private void setupCard(View cardView, String title, String subtitle, int iconRes,Fragment targetFragment) {
@@ -108,10 +96,7 @@ public class HomeFragment extends Fragment {
 
         cardView.setOnClickListener(v -> {
             if (targetFragment != null) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, targetFragment)
-                        .addToBackStack(null)
-                        .commit();
+                ((MainActivity) getActivity()).replaceFragment(targetFragment, true);
             } else {
                 Toast.makeText(getContext(), title + " coming soon", Toast.LENGTH_SHORT).show();
             }

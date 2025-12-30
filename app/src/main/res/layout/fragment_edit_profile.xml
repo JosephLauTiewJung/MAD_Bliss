@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@drawable/gradient_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_marginBottom="32dp"
             android:text="Edit Profile"
             android:textColor="#333333"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -106,10 +107,11 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/linear_background"
+                app:backgroundTint="@null"
                 android:text="Save"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#9C27B0"
-                android:layout_marginStart="8dp"/>
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </LinearLayout>

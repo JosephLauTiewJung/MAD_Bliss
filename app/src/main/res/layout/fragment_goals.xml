@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@drawable/gradient_bg">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -182,7 +182,8 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/linear_background"
+                    app:backgroundTint="@null"
                     android:textAllCaps="false"
                     android:paddingHorizontal="24dp"
                     android:drawableLeft="@drawable/ic_add"
