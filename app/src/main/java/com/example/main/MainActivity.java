@@ -25,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
-    private FloatingActionButton fabChat;
+    /*private FloatingActionButton fabChat;*/
     private View headerSection;
     private View headerContent;
     private android.widget.TextView tvWelcome, tvDate;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main); // 确保布局包含 fragment_container 和 bottomNavigation
 
         bottomNav = findViewById(R.id.bottomNavigation);
-        fabChat = findViewById(R.id.fabChat);
+        /*fabChat = findViewById(R.id.fabChat);*/
         headerSection = findViewById(R.id.headerSection);
         headerContent = findViewById(R.id.headerContent);
         tvWelcome = findViewById(R.id.tvWelcome);
@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_journal) {
                 replaceFragment(new JournalListFragment(),false);
                 return true;
+            } else if (itemId == R.id.nav_chat) {
+                replaceFragment(new AIChatbotFragment(),false);
+                return true;
             } else if (itemId == R.id.nav_relax) {
                 replaceFragment(new RelaxationFragment(),false);
                 return true;
@@ -103,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 3. FAB 聊天按钮逻辑
-        fabChat.setOnClickListener(v -> {
+        /*fabChat.setOnClickListener(v -> {
             replaceFragment(new AIChatbotFragment(), true);
             // Deselect bottom nav items since we are in a special fragment
             bottomNav.getMenu().setGroupCheckable(0, false, true);
-        });
+        });*/
 
         // Initialize header with user data
         initializeHeader();
