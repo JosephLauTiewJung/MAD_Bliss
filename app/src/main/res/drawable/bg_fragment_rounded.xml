@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Background color -->
+    <solid android:color="#FFFFFF" />
+
+    <!-- More dramatic rounded corners for bow effect -->
+    <corners
+        android:topLeftRadius="50dp"
+        android:topRightRadius="50dp"
+        android:bottomLeftRadius="25dp"
+        android:bottomRightRadius="25dp" />
+
+    <!-- Optional: Add a subtle shadow/border -->
+    <stroke
+        android:width="1dp"
+        android:color="#E0E0E0" />
+
+</shape>

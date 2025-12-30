@@ -62,7 +62,6 @@ public class MoodDistributionFragment extends Fragment {
             }
         };
         view.findViewById(R.id.btnBack).setOnClickListener(backHomeListener);
-        view.findViewById(R.id.tvBack).setOnClickListener(backHomeListener);
 
         // --- Tab navigation ---
         TextView moodDistributionTab = view.findViewById(R.id.moodDistributionTab);

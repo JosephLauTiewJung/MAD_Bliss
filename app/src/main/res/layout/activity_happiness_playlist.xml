@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/gradient_bg"
     tools:context="com.example.music.PlaylistSongActivity">
 
     <LinearLayout
@@ -20,24 +20,22 @@
 
         <ImageButton
             android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingStart="16dp"
-            android:paddingEnd="8dp"
-            android:src="@drawable/arrow_back"
+            android:src="@drawable/ic_arrow_back"
             app:tint="@color/black" />
 
         <TextView
             android:id="@+id/tv_playlist_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:text="Happiness Playlist"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

@@ -13,22 +13,22 @@
 
         <LinearLayout
             android:id="@+id/backContainer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
-            android:clickable="true"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-
+            <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/arrow_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back"
                 app:tint="#000000" />
 
             <TextView
@@ -36,9 +36,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Back"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -46,7 +47,7 @@
             android:id="@+id/cardView"
             android:layout_width="350dp"
             android:layout_height="510dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -184,8 +185,11 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="320dp"
             android:layout_height="42dp"
+            android:background="@drawable/linear_background"
+            app:backgroundTint="@null"
             android:fontFamily="@font/inter"
-            android:text="AI Music Suggestion"
+            android:text="Submit Mood"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -193,7 +197,6 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.15"
-            app:strokeColor="#7900E3" />
+            app:layout_constraintVertical_bias="0.15" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

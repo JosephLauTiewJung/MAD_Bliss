@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,17 +63,16 @@ public class WeeklySummaryFragment extends Fragment {
         users = firestore.collection("users");
         // 1. 初始化视图控件
         BarChart barChart = view.findViewById(R.id.barChart);
-        View backContainer = view.findViewById(R.id.backContainer);
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
 
-        // Set Weekly Summary tab as selected by default
-        TextView weeklySummaryTab = view.findViewById(R.id.weeklySummaryTab);
-        weeklySummaryTab.setBackgroundResource(R.drawable.tab_selected);
+        // Set up back button
+        btnBack.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStack();
+        });
 
         // Add navigation to Mood Distribution
-        TextView moodDistributionTab = view.findViewById(R.id.moodDistributionTab);
+        Button moodDistributionTab = view.findViewById(R.id.moodDistributionTab);
         moodDistributionTab.setOnClickListener(v -> {
-            // Clear Weekly Summary tab selection before navigating
-            weeklySummaryTab.setBackgroundResource(R.drawable.tab_selector);
             if (getParentFragmentManager() != null) {
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new MoodDistributionFragment())
@@ -84,15 +85,7 @@ public class WeeklySummaryFragment extends Fragment {
         // View cardMood = view.findViewById(R.id.cardMood);
 
         // 2. 处理返回逻辑
-        View.OnClickListener backListener = v -> {
-            if (getParentFragmentManager() != null) {
-                getParentFragmentManager().popBackStack();
-            }
-        };
-
-        if (backContainer != null) {
-            backContainer.setOnClickListener(backListener);
-        }
+        // Removed undefined backContainer code
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // get mood data for each day of the week

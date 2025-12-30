@@ -13,13 +13,13 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bliss.adapter.JournalAdapter;
 import com.example.bliss.model.JournalEntry;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,7 +39,7 @@ public class JournalListFragment extends Fragment {
     private List<JournalEntry> journalList;
     private List<JournalEntry> allJournalList;
     private FirebaseFirestore db;
-    private FloatingActionButton fabAddJournal;
+    private View fabAddJournal;
     private ImageButton btnCalendar;
     private ListenerRegistration firestoreListener;
 

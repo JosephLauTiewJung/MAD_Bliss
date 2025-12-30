@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,9 +55,9 @@ public class TrackMoodFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_track_mood, container, false);
 
         // Back button
-        View backContainer = view.findViewById(R.id.backContainer);
-        if (backContainer != null) {
-            backContainer.setOnClickListener(v -> {
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> {
                 if (getParentFragmentManager() != null) {
                     getParentFragmentManager().popBackStack();
                 }
