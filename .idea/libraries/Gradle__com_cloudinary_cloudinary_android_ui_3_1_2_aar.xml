@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.cloudinary:cloudinary-android-ui:3.1.2@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/4a671226dd9e995b2531586a310ba5b2/transformed/cloudinary-android-ui-3.1.2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/4a671226dd9e995b2531586a310ba5b2/transformed/cloudinary-android-ui-3.1.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/4a671226dd9e995b2531586a310ba5b2/transformed/cloudinary-android-ui-3.1.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/a9af42e270f32faf8f11f24890278872/transformed/cloudinary-android-ui-3.1.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/a9af42e270f32faf8f11f24890278872/transformed/cloudinary-android-ui-3.1.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/a9af42e270f32faf8f11f24890278872/transformed/cloudinary-android-ui-3.1.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.cloudinary/cloudinary-android-ui/3.1.2/4a5faaa79b1b7ddd99f9abe812bde665bd119cdc/cloudinary-android-ui-3.1.2-javadoc.jar!/" />

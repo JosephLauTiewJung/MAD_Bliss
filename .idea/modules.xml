@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Bliss.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Bliss.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Bliss.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Bliss.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Bliss.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Bliss.app.unitTest.iml" />
     </modules>
   </component>
 </project>

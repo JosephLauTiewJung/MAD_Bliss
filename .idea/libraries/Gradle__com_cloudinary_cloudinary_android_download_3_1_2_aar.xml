@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.cloudinary:cloudinary-android-download:3.1.2@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/82819737dfd10c17e2bcb075c6ee8811/transformed/cloudinary-android-download-3.1.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/82819737dfd10c17e2bcb075c6ee8811/transformed/cloudinary-android-download-3.1.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/99b7b632f0ddaf1b0ba7cfcfcc389f6c/transformed/cloudinary-android-download-3.1.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/99b7b632f0ddaf1b0ba7cfcfcc389f6c/transformed/cloudinary-android-download-3.1.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.cloudinary/cloudinary-android-download/3.1.2/9bc64ecc4613359444681f1bb50e63958dad3662/cloudinary-android-download-3.1.2-javadoc.jar!/" />

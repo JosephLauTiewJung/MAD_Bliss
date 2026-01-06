@@ -75,7 +75,7 @@ public class SupportFragment extends Fragment {
 
         return view;
     }
-
+    //FOR UPDATE
     private void setupRow(View row, String number, String name) {
         row.setOnClickListener(v -> makeCall(number));
         row.setOnLongClickListener(v -> {
