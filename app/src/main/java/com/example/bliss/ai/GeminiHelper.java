@@ -4,6 +4,7 @@ import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
+import com.google.ai.client.generativeai.type.ServerException;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -16,6 +17,7 @@ public class GeminiHelper {
     private static final String API_KEY = BuildConfig.GEMINI_API_KEY;
     private final GenerativeModelFutures model;
     private final Executor executor = Executors.newSingleThreadExecutor();
+    private static final int MAX_RETRIES = 3;
 
     public GeminiHelper() {
         if (API_KEY == null || API_KEY.isEmpty() || API_KEY.equals("null")) {
@@ -42,9 +44,13 @@ public class GeminiHelper {
                 .addText(prompt)
                 .build();
 
+        generateWithRetry(userContent, MAX_RETRIES, callback);
+    }
+
+    private void generateWithRetry(Content content, int retriesLeft, AnalysisCallback callback) {
         final ListenableFuture<GenerateContentResponse> response;
         try {
-            response = model.generateContent(userContent);
+            response = model.generateContent(content);
         } catch (Throwable t) {
             android.util.Log.e("GeminiHelper", "Failed to start generateContent", t);
             callback.onAnalysisFailure(t);
@@ -72,11 +78,21 @@ public class GeminiHelper {
 
             @Override
             public void onFailure(Throwable t) {
-                android.util.Log.e("GeminiHelper", "Generation failed", t);
-                callback.onAnalysisFailure(t);
+                if (t instanceof ServerException && retriesLeft > 0) {
+                    android.util.Log.w("GeminiHelper", "Server error, retrying... (" + retriesLeft + " retries left)", t);
+                    // Exponential backoff
+                    long delay = (long) (Math.pow(2, MAX_RETRIES - retriesLeft) * 1000);
+                    new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                        generateWithRetry(content, retriesLeft - 1, callback);
+                    }, delay);
+                } else {
+                    android.util.Log.e("GeminiHelper", "Generation failed", t);
+                    callback.onAnalysisFailure(t);
+                }
             }
         }, executor);
     }
+
 
     public interface AnalysisCallback {
         void onAnalysisSuccess(String result);
